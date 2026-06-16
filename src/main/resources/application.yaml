@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: search_typeahead_system
