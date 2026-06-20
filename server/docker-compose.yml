@@ -1,6 +1,27 @@
 version: '3.8'
 
 services:
+  # Cache Node 1
+  redis1:
+    image: redis:7-alpine
+    container_name: typeahead_redis_1
+    ports:
+      - "6379:6379"
+
+  # Cache Node 2
+  redis2:
+    image: redis:7-alpine
+    container_name: typeahead_redis_2
+    ports:
+      - "6380:6379"
+
+  # Cache Node 3
+  redis3:
+    image: redis:7-alpine
+    container_name: typeahead_redis_3
+    ports:
+      - "6381:6379"
+
   app:
     build: .
     container_name: typeahead_server
@@ -10,8 +31,11 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ep-blue-salad-atdflx2w.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require
       - SPRING_DATASOURCE_USERNAME=neondb_owner
       - SPRING_DATASOURCE_PASSWORD=npg_Mp2PKcAvks4Z
-
-      - SPRING_DATA_REDIS_HOST=dashing-mastiff-83685.upstash.io
-      - SPRING_DATA_REDIS_PORT=6379
-      - SPRING_DATA_REDIS_PASSWORD=gQAAAAAAAUblAAIgcDI5ZGQwMTNiZmQ1OTU0ZmJmYTIzZDQ0NTYyODdiZGEwMw
-      - SPRING_DATA_REDIS_SSL=true
+      
+      - APP_REDIS_NODE1_HOST=redis1
+      - APP_REDIS_NODE2_HOST=redis2
+      - APP_REDIS_NODE3_HOST=redis3
+    depends_on:
+      - redis1
+      - redis2
+      - redis3

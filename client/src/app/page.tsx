@@ -23,6 +23,7 @@ export default function Home() {
   // 2. Fetch Suggestions from Java Backend
   useEffect(() => {
     if (!debouncedQuery.trim()) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSuggestions([]);
       return;
     }
