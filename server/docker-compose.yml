@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: typeahead_server
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ep-blue-salad-atdflx2w.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require
+      - SPRING_DATASOURCE_USERNAME=neondb_owner
+      - SPRING_DATASOURCE_PASSWORD=npg_Mp2PKcAvks4Z
+
+      - SPRING_DATA_REDIS_HOST=dashing-mastiff-83685.upstash.io
+      - SPRING_DATA_REDIS_PORT=6379
+      - SPRING_DATA_REDIS_PASSWORD=gQAAAAAAAUblAAIgcDI5ZGQwMTNiZmQ1OTU0ZmJmYTIzZDQ0NTYyODdiZGEwMw
+      - SPRING_DATA_REDIS_SSL=true
