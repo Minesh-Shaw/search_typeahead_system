@@ -40,9 +40,9 @@ public class AppConfig {
             router.addNode(new RedisCacheNode("redis-node-3", createRedisTemplate(host3, port3)), 3);
             System.out.println("Initialized Physically Distributed Redis Cache (3 Nodes).");
         } else {
-            router.addNode(new MemoryCacheNode("mem-node-1"), 3);
-            router.addNode(new MemoryCacheNode("mem-node-2"), 3);
-            router.addNode(new MemoryCacheNode("mem-node-3"), 3);
+            router.addNode(new MemoryCacheNode("mem-node-1"), 50);
+            router.addNode(new MemoryCacheNode("mem-node-2"), 50);
+            router.addNode(new MemoryCacheNode("mem-node-3"), 50);
             System.out.println("Initialized In-Memory Cache (3 Nodes).");
         }
 
