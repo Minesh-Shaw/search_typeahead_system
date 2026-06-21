@@ -72,4 +72,28 @@ public class SearchService {
         if (hoursAgo < 24) return 1.2;  // Warm
         return 1.0;                     // Historical
     }
+
+    public List<String> getTrending() {
+        String cacheKey = "global_trending";
+        CacheNode cacheNode = router.routeNode(cacheKey);
+        
+        // Try cache first
+        List<String> cached = cacheNode.getSuggestions(cacheKey);
+        if (cached != null && !cached.isEmpty()) {
+            return cached;
+        }
+
+        // Fallback to database if cache miss
+        List<SearchQuery> topQueries = repo.findTop100ByOrderBySearchCountDesc();
+        
+        // Apply trending logic (recency + count)
+        List<String> trending = calculateTrendingRank(topQueries);
+
+        // Store in cache with TTL
+        if (!trending.isEmpty()) {
+            cacheNode.putSuggestions(cacheKey, trending);
+        }
+        
+        return trending;
+    }
 }

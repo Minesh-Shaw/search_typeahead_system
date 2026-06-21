@@ -36,4 +36,9 @@ public class SearchController {
                 "routedNodeId", router.routeNode(prefix).getNodeId()
         );
     }
+
+    @GetMapping("/trending")
+    public List<String> getTrending() {
+        return searchService.getTrending();
+    }
 }
