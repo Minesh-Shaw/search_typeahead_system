@@ -127,3 +127,38 @@ When hitting the debug endpoint, the routing distributes uniformly across the ri
 * **Design:** Redis lists hold the pre-computed, sorted suggestions for a prefix. They are given a strict 10-minute Time-To-Live (TTL).
 
 * **Trade-off:** We trade absolute real-time accuracy for ultra-low latency. If a term suddenly goes viral, it may take up to 10 minutes for the old cache to expire and the new trending score to surface to users.
+
+## 7. Other Instructions
+
+### Downloading the Dataset
+
+1. Ensure Python is installed on your system.
+
+2. Install the required Hugging Face datasets library:
+
+```bash
+pip install datasets
+```
+
+3. Run the dataset downloader script:
+```bash
+python download_dataset.py
+```
+
+4. Move the generated dataset.csv into the src/main/resources/ directory of the Spring Boot application before starting the server.
+
+### Running the Load Tester
+
+1. Ensure the Spring Boot backend and Docker containers are running.
+
+2. Install the necessary Python asynchronous networking and math libraries:
+```bash
+pip install aiohttp numpy
+```
+
+3. Run the load testing script:
+```bash
+python load_test.py
+```
+
+4. The script dynamically extracts real prefixes from the ```dataset.csv``` and fires 100,000 concurrent GET requests and 5,000 POST requests. It will output a detailed performance report, including p95/p99 latency and actual cache hit rates, directly to your terminal.
