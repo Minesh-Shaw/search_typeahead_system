@@ -92,9 +92,9 @@ The system is designed around a decoupled, microservices architecture to ensure 
 
 * **p95 Latency:** 274.01 ms
 
-* **p99 Latency:** 396.84 ms
+* **p99 Latency:** 3621.51 ms
 
-* **Cache Hit Rate:** ~99.9% (After the initial cache miss, the 10-minute TTL guarantees 0 database reads for identical prefixes).
+* **Cache Hit Rate:** ~98.5% (After the initial cache miss, the 10-minute TTL guarantees 0 database reads for identical prefixes).
 
 * **Write Reduction (Batching):** 10,000 incoming search POST requests were processed. Because of the BatchWriteService, these were aggregated in RAM and resulted in exactly 1 bulk database write operation. This represents a >99% reduction in database write pressure.
 
